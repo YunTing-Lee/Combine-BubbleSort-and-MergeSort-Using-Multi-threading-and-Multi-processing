@@ -50,3 +50,15 @@
 
 **Multi-thread與 1個process執行速度差不多的原因 :**  
 除了上述講到Multi-Thread無法發揮優勢的原因之外，推測可能也與K值的大小有關。在此實驗中，不管資料筆數是多少皆將K值設為1000，而在下一個實驗中，變動了K值做比較就可以發現當K值增加後，Multi-thread的執行速度就會比只有一個process快上許多，原因可能是當K不夠大時也無法發揮Multi-thread並行執行的優勢，所以與只有一個process的執行速度差不多。
+
+### **[不同K值 vs. 執行時間] : :**  
+![image](https://github.com/YunTing-Lee/Merge-Sort-Using-Multi-threading-and-Multi-processing/blob/main/Picture/Time%20spent%20in%20different%20value%20of%20K%20for%201%20million%20data.png)
+![image](https://github.com/YunTing-Lee/Merge-Sort-Using-Multi-threading-and-Multi-processing/blob/main/Picture/line%20chart_Time%20spent%20in%20different%20value%20of%20K%20for%201%20million%20data.png)
+
+**探討造成執行速度差別的原因，以及可能的解決方法 :**  
+方法一 : 因此方法是直接將所有資料一次做bubble sort，所以執行效率是與K值無關的，不會因K值改變而改變。  
+方法二 : 由圖表中可以看到方法二在K=2500到K=5000時的執行速度是差不多的，但若K繼續上升，執行速度會明顯的增加，K=10000時執行速度為K=5000的2倍左右，而K=20000時執行速度為K=5000的8倍左右，原因可能為若將資料分成過多的份數，則一份資料裡的數據量會變得太少，而這樣先做bubble sort可能變得較沒意義，像若K=20000，則1份資料裡只會有5個數字，因此就要先做20000次的5個資料的排序後，再進行20000份資料的合併，造成執行效率不高，所以應選擇適當數量份數進行切割。  
+方法三 : 由圖表中可以看到方法三在K=2500時執行效率是最好的，到K=5000時執行速度有些微的提升，但若K繼續上升，執行速度會明顯的增加，K=10000時執行速度為K=5000的2倍左右，而K=20000時執行速度為K=5000的4倍左右，除了方法二所提到的原因之外，可能還有因為建立了過多的process會需要儲存太多process的狀態，耗費太多系統資源，因此process多到一個限度，反而會使得效能下降。  
+方法四 : 由圖表中可以看到方法四在從K=2500到K=10000的執行效率有在提升，當K=10000時執行速度最快，但若K繼續提升，執行速度會開始增加。原因可能與方法二與方法三所提到的相同。      
+
+在100萬筆資料的測試下，當K=5000到K=10000時，執行效率為 方法3 > 方法4 > 方法2 ，當K=20000時，執行效率會變為 方法4 > 方法3 > 方法2。Multi-process與Multi-thread順序變換的原因可能是因為Multi-process中的每個process都擁有自己的address space( Code Section, Data Section, Need Resources )和Program Counter, Register Set以及Stack Space，而Multi-Thread則可以共用同一份address space，只需要長出自己的Program Counter, Register Set以及Stack Space即可。所以當K值很大時，Multi-process與Multi-Thread所需儲存process或thread的狀態數量與所需空間就會開始有明顯的差別，Multi-process需要儲存process的狀態比Multi-Thread需儲存thread的狀態多太多，因此耗費太多系統資源，還有因為花在context switch的時間也比Multi-Thread多，使效能開始下降，執行速度就開始比使用Multi-Thread來的慢
