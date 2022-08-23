@@ -30,13 +30,13 @@
 ## 方法四 : 
 將N個數目字先成K份，並由K個Threads對分別進行Bubble Sort之後，再用Thread(s)作Merge Sort
 
-
+---
 ## 分析結果與原因 : 
-###**[不同N值 vs. 執行時間] :**  
-![image](https://github.com/YunTing-Lee/Merge-Sort-Using-Multi-threading-and-Multi-processing/blob/main/Picture/Time%20spent%20in%20different%20methods%20for%20different%20numbers%20of%20data(K%3D1000).png)
-![image](https://github.com/YunTing-Lee/Merge-Sort-Using-Multi-threading-and-Multi-processing/blob/main/Picture/line%20chart%20_time%20spent%20in%20different%20methods%20for%20different%20numbers%20of%20data(K%3D1000).png)
+> ### **[不同N值 vs. 執行時間] :**  
+> ![image](https://github.com/YunTing-Lee/Merge-Sort-Using-Multi-threading-and-Multi-processing/blob/main/Picture/Time%20spent%20in%20different%20methods%20for%20different%20numbers%20of%20data(K%3D1000).png)
+> ![image](https://github.com/YunTing-Lee/Merge-Sort-Using-Multi-threading-and-Multi-processing/blob/main/Picture/line%20chart%20_time%20spent%20in%20different%20methods%20for%20different%20numbers%20of%20data(K%3D1000).png)
 
-**探討造成執行速度差別的原因，以及可能的解決方法 :**
+>**探討造成執行速度差別的原因，以及可能的解決方法 :**
 在大資料(100萬筆)的測試下，若K值設為1000，執行效率為 方法3 > 方法2 > 方法4 > 方法1，結果顯示使用方法一的直接全部bubble sort是最慢的，這是可預期的。而在另外3個方法中，使用方法3(Multi-process)會是最快的，而方法2(一個process)與方法3(Multi-thread)是差不多的。
 
 
