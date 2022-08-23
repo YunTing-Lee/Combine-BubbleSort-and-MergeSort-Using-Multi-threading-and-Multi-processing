@@ -44,7 +44,7 @@
 1. CPU scheduler依process為單位分配time slice  
 因為我們自己寫的thread會是user thread，而user thread會依附在process內，所以CPU scheduler還是會以process為單位進行scheduling, context switch 以及分配time slice。則因Multi-Thread本質上還是在一個process裡做資源分配以及優化，沒有利用到Multi-Processing，所以對於速度提升影響有限。因此雖然Multi-Process會比Multi-thread更消耗資源( 因每個process都需有自己的address space )，但因為使用Multi-Process可以會獲得更多的 CPU執行時間以及更好的利用CPU的效能，所以可以更明顯的減少排序的程式執行時間。
 
-2. 在排序時CPU處於忙碌狀態，不會有I/O或事件發生需等待
+2. 在排序時CPU處於忙碌狀態，不會有I/O或事件發生需等待  
 因為我們要排序前會把所需要的數據資料都載入memory裡，因此在排序時是牽涉到CPU與memory間的資料交換，由於兩者間的 I/O 速度差異不大，CPU不會使用很多時間等待記憶體的資料複製工作，也因為在排序時不會需要I/O，所以CPU是隨時處於忙碌的狀態。當CPU忙碌時，使用Multi-thread反而會額外增加了資源同步的協調動作，導致效能降低，相反的Multi-process不需要多做資源同步的協調動作，因此可讓CPU專心忙碌於排序工作，使效能提升更多。  
 而一般在討論Multi-Thread因為花費context switch的代價比Multi-Process相對輕很多，所以效能會較高的說法，有個先決條件是CPU在計算過程中經常處於閒置狀態，而這樣Multi-Thread就可以降低CPU閒置的時間，做程式的其他部分的運算，所以才會提高計算效能。而由於這次的程式不符合此條件，導致Multi-Thread的優勢無法展現出來，所以Multi-Thread才會比Multi-Process慢。  
 
