@@ -29,3 +29,7 @@
 
 ## 方法四 : 
 將N個數目字先成K份，並由K個Threads對分別進行Bubble Sort之後，再用Thread(s)作Merge Sort
+
+
+## 分析結果與原因 : 
+[不同N值 vs. 執行時間] :
