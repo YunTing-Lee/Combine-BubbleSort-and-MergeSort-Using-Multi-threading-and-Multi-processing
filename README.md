@@ -6,7 +6,7 @@
 - 作業系統 : Ubuntu 18.04.05(64bit)
 
 ## 使用流程
-1. 編譯 : g++ multi-threading and multi-processing.cpp -o out -lpthread
+1. 編譯 : g++ multi-threading-and-multi-processing.cpp -o out -lpthread
 2. 執行 : ./out
 3. 螢幕會顯示提示字元 :「請輸入檔案名稱(eg.input_1w, input_10w,......)[0]Quit :」，請使用者輸入檔名，不用加上附檔名，若輸入的檔案找不到，則會顯示「###檔名does not exist###」，請使用者再輸入一次，直到輸入正確為止進到下一步驟或是輸入0自動結束程式。
 4. 螢幕會顯示提示字元 :「請問要切成幾份(正整數) : 」，請使用者輸入要將檔案內資料分成幾份，此數字必須是正整數，若不是正整數或此數字超過檔案數字比數，會顯示「error ! Please try again :」，請使用者再輸入一次，直到輸入正確為止，才會進到下一個步驟。
